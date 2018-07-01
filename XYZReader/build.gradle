@@ -15,6 +15,7 @@ apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
+    google()
     maven {
         url 'https://maven.google.com/'
         name 'Google'
@@ -33,6 +34,7 @@ android {
 
 dependencies {
     implementation "com.android.support:support-v4:$androidSupportVersion"
+    implementation "com.android.support:exifinterface:27.1.1"
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
     implementation "com.android.support:palette-v7:$androidSupportVersion"
     implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
@@ -41,4 +43,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation files('libs/volley.jar')
+
+    // picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
