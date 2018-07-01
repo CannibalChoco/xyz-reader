@@ -24,6 +24,7 @@
         android:layout_marginBottom="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         android:background="@drawable/add_fab_background"
+        android:translationZ="@dimen/fab_press_translation_z"
         android:contentDescription="@string/action_share"
         android:elevation="@dimen/fab_elevation"
         android:src="@drawable/ic_share"
