@@ -3,10 +3,12 @@ package com.example.xyzreader.ui;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.format.DateUtils;
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,6 +47,8 @@ public class ArticleDetailFragment extends Fragment implements
 
     private ImageView mPhotoView;
     private boolean mIsCard = false;
+
+    private int oldScrollYPosition = 0;
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss");
     // Use default locale format
@@ -126,10 +131,24 @@ public class ArticleDetailFragment extends Fragment implements
             return;
         }
 
-        TextView titleView = mRootView.findViewById(R.id.article_title);
         TextView bylineView = mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
         TextView bodyView = mRootView.findViewById(R.id.article_body);
+
+        final NestedScrollView scrollView = mRootView.findViewById(R.id.scrollview);
+        final FloatingActionButton fab = mRootView.findViewById(R.id.share_fab);
+
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                if (scrollView.getScrollY() > oldScrollYPosition) {
+                    fab.hide();
+                } else if (scrollView.getScrollY() < oldScrollYPosition || scrollView.getScrollY() <= 0) {
+                    fab.show();
+                }
+                oldScrollYPosition = scrollView.getScrollY();
+            }
+        });
 
         String title;
 
